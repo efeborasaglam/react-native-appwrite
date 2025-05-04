@@ -10,14 +10,15 @@ import { useAuth } from "@/context/AuthContext";
 import { Redirect } from "expo-router";
 import TextCustom from "./components/TextCustom";
 
-const signin = () => {
-    const { session, signin } = useAuth();
+const Signup = () => {
+    const { session, signup } = useAuth();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [name, setName] = useState("");
 
     const handleSubmit = async () => {
-        signin({ email, password });
+        signup({ email, password, name });
     };
 
     if (session) return <Redirect href="/" />;
@@ -25,8 +26,16 @@ const signin = () => {
         <View style={styles.container}>
             <View>
                 <TextCustom style={styles.headline} fontSize={72}>
-                    SignIn
+                    SignUp
                 </TextCustom>
+
+                <TextCustom>Name:</TextCustom>
+                <TextInput
+                    placeholder="Enter your name..."
+                    style={styles.input}
+                    value={name}
+                    onChangeText={(text) => setName(text)}
+                />
 
                 <TextCustom>Email:</TextCustom>
                 <TextInput
@@ -46,7 +55,7 @@ const signin = () => {
                 />
 
                 <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-                    <Text style={styles.buttonText}>Login</Text>
+                    <Text style={styles.buttonText}>Register</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -70,7 +79,6 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 10,
         padding: 10,
-
         marginTop: 10,
         marginBottom: 10,
         borderColor: "grey",
@@ -88,4 +96,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default signin;
+export default Signup;
